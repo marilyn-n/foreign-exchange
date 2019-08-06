@@ -1,0 +1,12 @@
+.container {
+    padding: 2.5rem 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+.currency {
+    display: flex;
+    justify-content: space-between;
+}
