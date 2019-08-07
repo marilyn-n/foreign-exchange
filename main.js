@@ -1,31 +1,33 @@
 // `http://data.fixer.io/api/${date}?access_key=${accesKey}&${currencies}`
 
 const ctx = document.getElementById('myChart').getContext('2d');
-const accesKey = '92a45179da9f47cc64e7c4a4e9ba75fb';
+const currencyOptions = document.querySelector('.currency-options');
 
+const accesKey = '92a45179da9f47cc64e7c4a4e9ba75fb';
 const allCurrencies = 'symbols=USD,AUD,CAD,PLN';
 const mexicanPesoCurrencie = 'symbols=MXN';
 const date = '2000-01-03';
-
-// all currencies
-
-fetch(`http://data.fixer.io/api/${date}?access_key=${accesKey}&${allCurrencies}`)
-    .then((response) => response.json())
-    .then(data => {
-        console.log(data.rates, 'other rates');
-    });
-
-// euro to mxn
-
-fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${mexicanPesoCurrencie}`)
-    .then((response) => response.json())
-    .then(data => {
-        const mexicanPeso = data.rates.MXN;
-        console.log(mexicanPeso, 'mexican peso');
-
-    });
+const defaultCurrency = document.querySelector('option[selected]');
+const currentDate = document.querySelector('.date');
+const rate = document.querySelector('.rate');
 
 
+function convertFx() {
+    // get mxn rate
+    fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${mexicanPesoCurrencie}`)
+        .then((response) => response.json())
+        .then(data => {
+            const mexicanPeso = data.rates.MXN;
+            const equalsTo = this.value / mexicanPeso;
+            rate.textContent = equalsTo.toFixed(2);
+
+        });
+}
+
+currencyOptions.addEventListener('change', convertFx);
+window.addEventListener('load', () => {
+    currentDate.textContent = Date();
+})
 
 const myChart = new Chart(ctx, {
     type: 'bar',
