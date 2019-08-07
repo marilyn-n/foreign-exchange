@@ -1,10 +1,30 @@
+// `http://data.fixer.io/api/${date}?access_key=${accesKey}&${currencies}`
+
 const ctx = document.getElementById('myChart').getContext('2d');
+const accesKey = '92a45179da9f47cc64e7c4a4e9ba75fb';
 
-const data = fetch('http://data.fixer.io/api/latest?access_key=92a45179da9f47cc64e7c4a4e9ba75fb')
+const allCurrencies = 'symbols=USD,AUD,CAD,PLN';
+const mexicanPesoCurrencie = 'symbols=MXN';
+const date = '2000-01-03';
+
+// all currencies
+
+fetch(`http://data.fixer.io/api/${date}?access_key=${accesKey}&${allCurrencies}`)
     .then((response) => response.json())
-    .then(data => data);
+    .then(data => {
+        console.log(data.rates, 'other rates');
+    });
 
-console.log(data, '****');
+// euro to mxn
+
+fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${mexicanPesoCurrencie}`)
+    .then((response) => response.json())
+    .then(data => {
+        const mexicanPeso = data.rates.MXN;
+        console.log(mexicanPeso, 'mexican peso');
+
+    });
+
 
 
 const myChart = new Chart(ctx, {

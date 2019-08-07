@@ -12,30 +12,34 @@
 </head>
 
 <body>
-    <h1>Foreign Exchange Rate</h1>
     <div class="container">
         <div class="row">
-            <div class="col-6">
-                <canvas id="myChart" width="400" height="400"></canvas>
-            </div>
-            <div class="currency col-6">
-                <div>
-                    <span>MXN</span>
-                </div>
-                <div>
-                    <span>&rarr;</span>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Currency
-                      </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">CAD</a>
-                        <a class="dropdown-item" href="#">USD</a>
-                        <a class="dropdown-item" href="#">GBP</a>
+
+            <div class="col-5">
+                <div class="rate-details">
+                    <div class="currency">
+                        <span class="base-currency">1 Mexican Peso equals</span>
+                        <div class="btn-group">
+                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              United States Dollar
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">CAD</a>
+                                <a class="dropdown-item" href="#">United States Dollar
+                                  </a>
+                                <a class="dropdown-item" href="#">PLN</a>
+                            </div>
+                        </div>
                     </div>
+                    <span class="rate">22,45 United States Dollar</span>
+                    <span class="date">8th August 2019 10:23 PM</span>
                 </div>
             </div>
+
+            <div class="col-7 historical-rate">
+                <canvas id="myChart" width="400" height="200"></canvas>
+            </div>
+
         </div>
     </div>
 

@@ -1,12 +1,29 @@
 .container {
-    padding: 2.5rem 0;
+    padding: 1rem;
+    margin: 3rem;
+    border: 1px solid #80808052;
+    border-radius: 8px;
+}
+
+.currency {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rate {
+    font-size: 1.5rem;
+}
+
+.date,
+.base-currency {
+    color: gray;
 }
 
 h1 {
     text-align: center;
 }
 
-.currency {
-    display: flex;
-    justify-content: space-between;
+.rate-details>span {
+    display: block;
 }
