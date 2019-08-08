@@ -18,6 +18,7 @@
 .date,
 .base-currency {
     color: gray;
+    font-weight: lighter;
 }
 
 h1 {
