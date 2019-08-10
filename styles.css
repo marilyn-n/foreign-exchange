@@ -28,3 +28,8 @@ h1 {
 .rate-details>span {
     display: block;
 }
+
+.historical-exchange {
+    display: flex;
+    justify-content: space-between;
+}
