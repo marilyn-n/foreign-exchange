@@ -7,30 +7,26 @@ const mxnCurrency = '&symbols=MXN'
 const currencySelector = document.querySelector('.currency-options');
 const currentDate = document.querySelector('.date');
 const rate = document.querySelector('.rate');
+const rateName = document.querySelector('.rate-name');
 
 const displayCurrency = (data) => {
-    console.log(data);
     const rates = data.rates;
+
     for (const currency in rates) {
+        const mexicanPeso = rates.MXN;
         const rateValue = rates[currency];
         const nameOfCurrency = currency;
-        dropdownCurrencies.innerHTML += `<option value="${rateValue}">${nameOfCurrency}</option>`;
+
+        dropdownCurrencies.innerHTML += `
+            <option value="${rateValue / mexicanPeso}">${nameOfCurrency}</option>
+        `;
     }
-    const options = document.querySelectorAll('option');
-    const mexicanPeso = data.rates.MXN;
-    console.log(data.rates.MXN);
 
-    [...options].map(item => {
+    const currencyName = dropdownCurrencies.options[dropdownCurrencies.selectedIndex].textContent;
+    const convertionRate = Number(dropdownCurrencies.options[dropdownCurrencies.selectedIndex].value);
 
-        const currencyValue = item.value;
-        const convertion = currencyValue / mexicanPeso;
-
-        const currencyName = dropdownCurrencies.options[dropdownCurrencies.selectedIndex].text;
-
-        rate.textContent = `${convertion.toFixed(3)} ${currencyName}`;
-
-
-    });
+    rate.textContent = `${convertionRate.toFixed(3)}`;
+    rateName.textContent = `${currencyName}`;
 
 }
 
@@ -43,22 +39,3 @@ function fetchCurrencies() {
 fetchCurrencies();
 dropdownCurrencies.addEventListener('change', displayCurrency);
 window.addEventListener('load', () => currentDate.textContent = Date());
-// const convertFx = () => {
-//     fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${mxnCurrency}`) // get mxn rate
-//         .then((response) => response.json())
-//         .then(data => {
-//             const mexicanPeso = data.rates.MXN;
-//             const convertion = currencySelector.value / mexicanPeso;
-//             const currencyName = currencySelector.options[currencySelector.selectedIndex].text;
-
-//             if (currencySelector.options[currencySelector.selectedIndex].classList.contains('default')) {
-//                 rate.classList.add('d-none');
-//             } else {
-//                 rate.classList.remove('d-none');
-//             }
-//             rate.textContent = `${convertion.toFixed(3)} ${currencyName}`;
-
-//         });
-// }
-
-// currencySelector.addEventListener('change', convertFx);
