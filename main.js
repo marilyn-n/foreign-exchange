@@ -1,41 +1,37 @@
 const ctx = document.getElementById('myChart').getContext('2d');
-const dropdownCurrencies = document.querySelector('.dropdown-currencies');
-
+const dropdownMenu = document.querySelector('.dropdown-option-menu');
 const accesKey = '92a45179da9f47cc64e7c4a4e9ba75fb';
-const allCurrencies = '&symbols=USD,CAD,EUR,AUD,PLN,GBP,JPY,MXN'
-const mxnCurrency = '&symbols=MXN'
-const currencySelector = document.querySelector('.currency-options');
-const currentDate = document.querySelector('.date');
+const currencySymbols = '&symbols=USD,CAD,EUR,AUD,PLN,GBP,JPY,MXN'
+const date = document.querySelector('.date');
 const rate = document.querySelector('.rate');
-const rateName = document.querySelector('.rate-name');
+const currencyName = document.querySelector('.currency-name');
 
-const displayCurrency = (data) => {
-    const rates = data.rates;
+const currencyConverter = (data) => {
+    const exchangeRates = data.rates;
 
-    for (const currency in rates) {
-        const mexicanPeso = rates.MXN;
-        const rateValue = rates[currency];
-        const nameOfCurrency = currency;
+    for (const currency in exchangeRates) {
+        const mexicanPeso = exchangeRates.MXN;
+        const currencyRate = exchangeRates[currency];
+        const currencyCode = currency;
 
-        dropdownCurrencies.innerHTML += `
-            <option value="${rateValue / mexicanPeso}">${nameOfCurrency}</option>
+        dropdownMenu.innerHTML += `
+            <option value="${currencyRate / mexicanPeso}">${currencyCode}</option>
         `;
     }
 
-    const currencyName = dropdownCurrencies.options[dropdownCurrencies.selectedIndex].textContent;
-    const convertionRate = Number(dropdownCurrencies.options[dropdownCurrencies.selectedIndex].value);
-
+    const convertionRate = Number(dropdownMenu.options[dropdownMenu.selectedIndex].value);
+    const currencyTextValue = dropdownMenu.options[dropdownMenu.selectedIndex].text;
     rate.textContent = `${convertionRate.toFixed(3)}`;
-    rateName.textContent = `${currencyName}`;
+    currencyName.textContent = `${currencyTextValue}`;
 
 }
 
-function fetchCurrencies() {
-    fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${allCurrencies}`)
+const fetchCurrencies = () => {
+    fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${currencySymbols}`)
         .then((response) => response.json())
-        .then(displayCurrency);
+        .then(currencyConverter);
 }
 
 fetchCurrencies();
-dropdownCurrencies.addEventListener('change', displayCurrency);
-window.addEventListener('load', () => currentDate.textContent = Date());
+dropdownMenu.addEventListener('change', currencyConverter);
+window.addEventListener('load', () => date.textContent = Date());

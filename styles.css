@@ -11,7 +11,8 @@
     align-items: center;
 }
 
-.rate {
+.rate,
+.currency-name {
     font-size: 1.5rem;
 }
 
@@ -25,7 +26,7 @@ h1 {
     text-align: center;
 }
 
-.rate-details>span {
+span.date {
     display: block;
 }
 
