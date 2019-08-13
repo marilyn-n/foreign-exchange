@@ -50,12 +50,43 @@ const getLastWeek = () => {
         days.push(format);
     }
 
-    const fetchArr =
-        Promise.all(days.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=USD`)
-            .then(res => res.json())
-            .then(data => console.log(data))
-        ));
-    console.log(fetchArr);
+    Promise.all(days.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=USD`)))
+        .then(responses => Promise.all(responses.map(res => res.json())))
+        .then(data => {
+            const MXN = 21.3478;
+            const dates = data.map(item => item['date']);
+            const rates = data
+                .map(item => item['rates'])
+                .map(rate => rate['USD'] / MXN);
+
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: '# MXN Exchange Rate',
+                        data: rates,
+                        backgroundColor: [
+                            'rgb(237, 247, 242)'
+                        ],
+                        borderColor: [
+                            'rgb(14, 157, 88)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+        });
 
 }
 
@@ -64,6 +95,7 @@ const fetchCurrencies = () => {
         .then((response) => response.json())
         .then(currencyConverter);
 }
+
 
 fetchCurrencies();
 dropdownMenu.addEventListener('change', currencyConverter);
