@@ -1,14 +1,17 @@
 .container {
     padding: 1rem;
-    margin: 3rem;
-    border: 1px solid #80808052;
-    border-radius: 8px;
+    margin: 3rem auto;
+    /* border: 1px solid #80808052;
+    border-radius: 8px; */
 }
 
-.currency {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+h1 {
+    text-align: center;
+}
+
+.base-currency,
+.date {
+    display: block;
 }
 
 .rate,
@@ -20,14 +23,6 @@
 .base-currency {
     color: gray;
     font-weight: lighter;
-}
-
-h1 {
-    text-align: center;
-}
-
-span.date {
-    display: block;
 }
 
 .historical-exchange {

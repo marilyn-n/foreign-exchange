@@ -12,29 +12,45 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-
-            <div class="col-5">
-                <div class="rate-details">
-                    <div class="currency">
-                        <span class="base-currency">1 Mexican Peso equals</span>
-
-                        <select class="btn btn-secondary dropdown-option-menu"></select>
+    <div class="card container container offset-md-3 col-6">
+        <div class="column">
+            <div class="row">
+                <div class="col-3">
+                    <label class="d-block" for="amoutn" value="">Amount</label>
+                    <div class="input-group mb-3 m-r5">
+                        <input type="text" class="form-control amount" aria-label="Amount (to the nearest dollar)">
                     </div>
-                    <span class="rate"></span>
-                    <span class="currency-name"></span>
-                    <span class="date"></span>
+                </div>
+                <div class="col-3">
+                    <label class="d-block" for="from">From</label>
+                    <div class="currency">
+                        <select class="dropdown-option-menu2 custom-select from" disabled>
+                            <option value="">MXN</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <label class="" for="to">To</label>
+                    <div class="currency">
+                        <select class="dropdown-option-menu custom-select to" name="" id=""></select>
+                    </div>
+                </div>
+                <div class="col-3 my-auto">
+                    <button type="button" class="btn btn-primary convert">Convert</button>
                 </div>
             </div>
-
-            <div class="col-7 historical-rate">
-                <canvas id="myChart" width="400" height="200"></canvas>
-                <div class="historical-exchange">
-                    <button type="button" class="btn btn-primary weekly-exchange">Past 7 days Exchange</button>
-                </div>
+            <div>
+                <span class="total-converted"></span>
             </div>
-
+            <div class="rate-details">
+                <span class="base-currency">1 Mexican Peso equals</span>
+                <span class="rate"></span>
+                <span class="currency-name"></span>
+                <span class="date"></span>
+            </div>
+            <div class="historical-exchange">
+            </div>
+            <canvas id="myChart" width="400" height="200"></canvas>
         </div>
     </div>
 
@@ -42,6 +58,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="./main.js"></script>
+    <script src="https://kit.fontawesome.com/214a65b0a9.js"></script>
 </body>
 
 </html>

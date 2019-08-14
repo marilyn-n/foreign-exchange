@@ -1,11 +1,22 @@
 const ctx = document.getElementById('myChart').getContext('2d');
-const dropdownMenu = document.querySelector('.dropdown-option-menu');
 const accesKey = '92a45179da9f47cc64e7c4a4e9ba75fb';
-const currencySymbols = 'symbols'
+const currencySymbols = 'symbols';
+const dropdownMenu = document.querySelector('.dropdown-option-menu');
 const date = document.querySelector('.date');
 const rate = document.querySelector('.rate');
 const currencyName = document.querySelector('.currency-name');
-const btnWeeklyExchange = document.querySelector('.weekly-exchange');
+const input = document.querySelector('input');
+
+const btnConvert = document.querySelector('.convert');
+const inputAmount = document.querySelector('.amount');
+const totalAmountConverted = document.querySelector('.total-converted');
+
+const doConversion = () => {
+    const amount = inputAmount.value;
+    const currencyToConvert = Number(dropdownMenu.options[dropdownMenu.selectedIndex].value);
+    const total = (amount * currencyToConvert).toFixed(3);
+    return totalAmountConverted.textContent = total;
+}
 
 const currencyConverter = (data) => {
     const exchangeRates = data.rates;
@@ -20,10 +31,10 @@ const currencyConverter = (data) => {
     }
 
     const convertedRate = Number(dropdownMenu.options[dropdownMenu.selectedIndex].value);
-    const optioncurrencyCode = dropdownMenu.options[dropdownMenu.selectedIndex].text;
+    const optionCurrencyCode = dropdownMenu.options[dropdownMenu.selectedIndex].text;
 
     rate.textContent = `${convertedRate.toFixed(3)}`;
-    currencyName.textContent = `${optioncurrencyCode}`;
+    currencyName.textContent = `${optionCurrencyCode}`;
 
 }
 
@@ -39,18 +50,17 @@ const formatDate = (date) => {
     return [year, month, day].join('-');
 }
 
-const getLastWeek = () => {
+const historicalWeek = () => {
     const daysOffWeek = 7;
+    const symbolCurrency = currencyName.textContent;
     const days = [];
 
     for (let i = 0; i <= daysOffWeek; i++) {
         const date = new Date() - ((daysOffWeek >= 0 ? i : (i - i - i)) * 24 * 60 * 60 * 1000);
         const day = new Date(date)
-        const format = formatDate(day);
-        days.push(format);
+        days.push(formatDate(day));
     }
 
-    const symbolCurrency = currencyName.textContent;
     Promise.all(days.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${symbolCurrency},MXN`)))
         .then(responses => Promise.all(responses.map(res => res.json())))
         .then(data => {
@@ -58,12 +68,9 @@ const getLastWeek = () => {
             const dates = data.map(item => item['date']);
             const rates = data
                 .map(item => item['rates'])
-                .map(rate => {
-                    const convertion = rate[symbolCurrency] / rate['MXN']
-                    return convertion.toFixed(3);
-                });
+                .map(rate => (rate[symbolCurrency] / rate['MXN']).toFixed(3));
 
-            var myChart = new Chart(ctx, {
+            const myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: dates,
@@ -102,6 +109,6 @@ const fetchCurrencies = () => {
 
 fetchCurrencies();
 dropdownMenu.addEventListener('change', currencyConverter);
-dropdownMenu.addEventListener('change', getLastWeek);
+// dropdownMenu.addEventListener('change', historicalWeek);
 window.addEventListener('load', () => date.textContent = Date());
-btnWeeklyExchange.addEventListener('click', getLastWeek);
+btnConvert.addEventListener('click', doConversion);
