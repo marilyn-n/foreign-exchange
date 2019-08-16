@@ -5,7 +5,7 @@ const dropdownMenu = document.querySelector('.dropdown-option-menu');
 const date = document.querySelector('.date');
 const rate = document.querySelector('.rate');
 const currencyName = document.querySelector('.currency-name');
-const input = document.querySelector('input');
+// const input = document.querySelector('input');
 
 const btnConvert = document.querySelector('.convert');
 const inputAmount = document.querySelector('.amount');
@@ -63,7 +63,7 @@ const historicalWeek = () => {
         days.push(formatDate(day));
     }
 
-    Promise.all(days.map(d => fetch(`https://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${symbolCurrency},MXN`)))
+    Promise.all(days.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${symbolCurrency},MXN`)))
         .then(responses => Promise.all(responses.map(res => res.json())))
         .then(data => {
 
@@ -104,13 +104,31 @@ const historicalWeek = () => {
 }
 
 const fetchCurrencies = () => {
-    fetch(`https://data.fixer.io/api/latest?access_key=${accesKey}&${currencySymbols}`)
+    fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${currencySymbols}`)
         .then((response) => response.json())
         .then(currencyConverter);
+}
+
+const validateInput = (e) => {
+    var x = inputAmount.value;
+    if (isNaN(x)) {
+        btnConvert.setAttribute('disabled', true);
+        document.querySelector('.input-validation').classList.remove('d-none');
+        return false;
+    } else {
+        btnConvert.removeAttribute('disabled');
+        document.querySelector('.input-validation').classList.add('d-none');
+        return true;
+    }
 }
 
 fetchCurrencies();
 dropdownMenu.addEventListener('change', currencyConverter);
 // dropdownMenu.addEventListener('change', historicalWeek);
-window.addEventListener('load', () => date.textContent = Date());
+window.addEventListener('load', () => {
+    setInterval(() => {
+        date.textContent = new Date()
+    }, 1000);
+});
 btnConvert.addEventListener('click', convertFrom);
+inputAmount.addEventListener('keyup', validateInput)

@@ -16,10 +16,11 @@
         <div class="column">
             <div class="row">
                 <div class="col-3">
-                    <label class="d-block" for="amoutn" value="">Amount</label>
-                    <div class="input-group mb-3 m-r5">
+                    <label class="d-block" for="amoutn" value="" name="amount">Amount</label>
+                    <div class="input-group mb-2 m-r5">
                         <input type="text" class="form-control amount" aria-label="Amount (to the nearest dollar)">
                     </div>
+                    <p class="input-validation d-none">Must input numbers</p>
                 </div>
                 <div class="col-3">
                     <label class="d-block" for="from">From</label>
@@ -36,9 +37,9 @@
                     </div>
                 </div>
                 <div class="col-3 my-auto text-center">
-                    <button type="button" class="btn btn-primary convert btn-radius">
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
+                    <button type="submit" class="btn btn-primary convert btn-radius">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
                 </div>
             </div>
             <div class="">
