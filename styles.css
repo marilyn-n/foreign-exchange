@@ -1,22 +1,25 @@
 .container {
     padding: 1rem;
     margin: 3rem auto;
-    /* border: 1px solid #80808052;
-    border-radius: 8px; */
 }
 
 h1 {
     text-align: center;
 }
 
+.total-details,
+.rate-details {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.total-converted {
+    font-size: 2rem;
+}
+
 .base-currency,
 .date {
     display: block;
-}
-
-.rate,
-.currency-name {
-    font-size: 1.5rem;
 }
 
 .date,
@@ -28,4 +31,10 @@ h1 {
 .historical-exchange {
     display: flex;
     justify-content: space-between;
+}
+
+.btn-radius {
+    border-radius: 50% !important;
+    height: 40px;
+    width: 40px;
 }

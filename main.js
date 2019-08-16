@@ -1,5 +1,5 @@
 const ctx = document.getElementById('myChart').getContext('2d');
-const accesKey = '92a45179da9f47cc64e7c4a4e9ba75fb';
+const accesKey = 'af1df608b7578b3a6cf8c34a07436951';
 const currencySymbols = 'symbols';
 const dropdownMenu = document.querySelector('.dropdown-option-menu');
 const date = document.querySelector('.date');
@@ -11,11 +11,13 @@ const btnConvert = document.querySelector('.convert');
 const inputAmount = document.querySelector('.amount');
 const totalAmountConverted = document.querySelector('.total-converted');
 
-const doConversion = () => {
+const convertFrom = () => {
     const amount = inputAmount.value;
     const currencyToConvert = Number(dropdownMenu.options[dropdownMenu.selectedIndex].value);
+    const currencySymbol = dropdownMenu.options[dropdownMenu.selectedIndex].text;
     const total = (amount * currencyToConvert).toFixed(3);
-    return totalAmountConverted.textContent = total;
+    totalAmountConverted.parentElement.classList.add('total-details');
+    return totalAmountConverted.textContent = `$${total} ${currencySymbol}`;
 }
 
 const currencyConverter = (data) => {
@@ -33,7 +35,7 @@ const currencyConverter = (data) => {
     const convertedRate = Number(dropdownMenu.options[dropdownMenu.selectedIndex].value);
     const optionCurrencyCode = dropdownMenu.options[dropdownMenu.selectedIndex].text;
 
-    rate.textContent = `${convertedRate.toFixed(3)}`;
+    rate.textContent = `$${convertedRate.toFixed(3)}`;
     currencyName.textContent = `${optionCurrencyCode}`;
 
 }
@@ -61,7 +63,7 @@ const historicalWeek = () => {
         days.push(formatDate(day));
     }
 
-    Promise.all(days.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${symbolCurrency},MXN`)))
+    Promise.all(days.map(d => fetch(`https://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${symbolCurrency},MXN`)))
         .then(responses => Promise.all(responses.map(res => res.json())))
         .then(data => {
 
@@ -102,7 +104,7 @@ const historicalWeek = () => {
 }
 
 const fetchCurrencies = () => {
-    fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${currencySymbols}`)
+    fetch(`https://data.fixer.io/api/latest?access_key=${accesKey}&${currencySymbols}`)
         .then((response) => response.json())
         .then(currencyConverter);
 }
@@ -111,4 +113,4 @@ fetchCurrencies();
 dropdownMenu.addEventListener('change', currencyConverter);
 // dropdownMenu.addEventListener('change', historicalWeek);
 window.addEventListener('load', () => date.textContent = Date());
-btnConvert.addEventListener('click', doConversion);
+btnConvert.addEventListener('click', convertFrom);
