@@ -6,18 +6,31 @@ const date = document.querySelector('.date');
 const rate = document.querySelector('.rate');
 const currencyName = document.querySelector('.currency-name');
 const input = document.querySelector('input');
-
+const h1 = document.querySelector('h1');
 const btnConvert = document.querySelector('.convert');
 const inputAmount = document.querySelector('.amount');
 const totalAmountConverted = document.querySelector('.total-converted');
 
+const lowValue = document.querySelector('.low-value');
+const averageValue = document.querySelector('.average-value');
+const highValue = document.querySelector('.high-value');
+const summaryRatesTitle = document.querySelector('.summary-rate');
+
+
 const convertFrom = () => {
     const amount = inputAmount.value;
-    const currencyToConvert = Number(dropdownMenu.options[dropdownMenu.selectedIndex].value);
-    const currencySymbol = dropdownMenu.options[dropdownMenu.selectedIndex].text;
-    const total = (amount * currencyToConvert).toFixed(3);
-    totalAmountConverted.parentElement.classList.add('total-details');
-    return totalAmountConverted.textContent = `$${total} ${currencySymbol}`;
+    if (amount > 0) {
+        const currencyToConvert = Number(dropdownMenu.options[dropdownMenu.selectedIndex].value);
+        const currencySymbol = dropdownMenu.options[dropdownMenu.selectedIndex].text;
+        const total = (amount * currencyToConvert).toFixed(3);
+        totalAmountConverted.parentElement.classList.remove('d-none');
+        return totalAmountConverted.textContent = `$${total} ${currencySymbol}`;
+    } else {
+        totalAmountConverted.textContent = ``;
+        totalAmountConverted.parentElement.classList.add('d-none');
+        return;
+    }
+
 }
 
 const currencyConverter = (data) => {
@@ -37,6 +50,8 @@ const currencyConverter = (data) => {
 
     rate.textContent = `$${convertedRate.toFixed(3)}`;
     currencyName.textContent = `${optionCurrencyCode}`;
+    h1.textContent = `# MXN to ${optionCurrencyCode}`;
+    summaryRatesTitle.textContent = `${optionCurrencyCode}`;
 
 }
 
@@ -63,7 +78,9 @@ const historicalWeek = () => {
         days.push(formatDate(day));
     }
 
-    Promise.all(days.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${symbolCurrency},MXN`)))
+    const test = ['2019-08-12', '2019-08-13'] // ${d}
+
+    Promise.all(test.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${symbolCurrency},MXN`)))
         .then(responses => Promise.all(responses.map(res => res.json())))
         .then(data => {
 
@@ -71,6 +88,13 @@ const historicalWeek = () => {
             const rates = data
                 .map(item => item['rates'])
                 .map(rate => (rate[symbolCurrency] / rate['MXN']).toFixed(3));
+
+            const summaryRates = rates.map(item => parseFloat(item));
+            const average = summaryRates.reduce((accumulator, currentValue) => accumulator + currentValue);
+
+            lowValue.textContent = `$${Math.min(...summaryRates)}`;
+            highValue.textContent = `$${Math.max(...summaryRates)}`;
+            averageValue.textContent = `$${average}`;
 
             const myChart = new Chart(ctx, {
                 type: 'line',
@@ -123,12 +147,14 @@ const validateInput = (e) => {
 }
 
 fetchCurrencies();
-dropdownMenu.addEventListener('change', currencyConverter);
-dropdownMenu.addEventListener('change', historicalWeek);
 window.addEventListener('load', () => {
     setInterval(() => {
         date.textContent = new Date()
     }, 1000);
 });
+
+btnConvert.addEventListener('click', currencyConverter);
+btnConvert.addEventListener('click', historicalWeek);
 btnConvert.addEventListener('click', convertFrom);
-inputAmount.addEventListener('keyup', validateInput)
+
+inputAmount.addEventListener('keyup', validateInput);
