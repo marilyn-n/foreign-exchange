@@ -1,3 +1,8 @@
+html,
+body {
+    background-color: #37517e;
+}
+
 .container {
     padding: 1rem;
     margin: 3rem auto;
@@ -5,6 +10,21 @@
 
 h1 {
     text-align: center;
+}
+
+h5 {
+    color: white;
+}
+
+footer {
+    height: 2.5rem;
+    width: 100%;
+    background-color: #2e4369;
+}
+
+footer>span {
+    padding: .45rem 0;
+    display: block;
 }
 
 .total-details,
@@ -24,8 +44,12 @@ h1 {
 
 .date,
 .base-currency {
-    color: gray;
     font-weight: lighter;
+}
+
+.date {
+    color: white;
+    margin: 2rem 0;
 }
 
 .historical-exchange {
@@ -44,4 +68,60 @@ h1 {
     font-size: .5rem;
     margin: 0;
     border-top: 1px solid red;
+}
+
+.top-currency-list {
+    display: flex;
+}
+
+.exchange-list {
+    padding: 0;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.exchange-list>li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 1rem;
+    text-decoration: none !important;
+    align-self: center;
+}
+
+.top-amount {
+    color: #00b9ff;
+    font-weight: 700;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    margin-top: 0;
+    line-height: 1.25rem;
+}
+
+.top-currency {
+    color: gray;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.01786em;
+    text-decoration: inherit;
+    text-transform: inherit;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-top: 0;
+    display: block;
+}
+
+.bg-clear-gray {
+    background-color: #f2f5f7;
 }

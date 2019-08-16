@@ -12,9 +12,10 @@
 </head>
 
 <body>
-    <div class="card container container offset-md-3 col-6">
-        <div class="column">
-            <div class="row">
+    <div class="container offset-md-3 col-8">
+        <h1 class="text-left text-white mb-4">MXN to USD</h1>
+        <div class="card p-2">
+            <div class="d-flex">
                 <div class="col-3">
                     <label class="d-block" for="amoutn" value="" name="amount">Amount</label>
                     <div class="input-group mb-2 m-r5">
@@ -38,10 +39,11 @@
                 </div>
                 <div class="col-3 my-auto text-center">
                     <button type="submit" class="btn btn-primary convert btn-radius">
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
                 </div>
             </div>
+
             <div class="">
                 <span class="total-converted"></span>
             </div>
@@ -53,6 +55,59 @@
             <div class="historical-exchange">
             </div>
             <canvas id="myChart" width="400" height="200"></canvas>
+            <div class="mx-auto">
+                <button type="button" class="btn btn-outline-primary active">Past 7 days</button>
+                <button type="button" class="btn btn-outline-primary">Past 12 days</button>
+            </div>
+        </div>
+        <div class="mt-4">
+            <h5>United State Dollar USD</h5>
+            <ul class="list-group list-group-horizontal-lg p-0">
+                <li class="list-group-item col">
+                    <span class="d-block text-center">Low</span>
+                    <span class="d-block text-center">$8787.00 USD</span>
+                </li>
+                <li class="list-group-item col">
+                    <span class="d-block text-center">Average</span>
+                    <span class="d-block text-center">$8787.00 USD</span>
+                </li>
+                <li class="list-group-item col">
+                    <span class="d-block text-center">High</span>
+                    <span class="d-block text-center">$8787.00 USD</span>
+                </li>
+
+            </ul>
+        </div>
+        <div class="mt-4 top-currency-list">
+            <table class="col table table-light mr-2">
+                <thead class="bg-clear-gray">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td class="text-right">Mark</td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <table class="col table table-light">
+                <thead class="bg-clear-gray">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td class="text-right">Mark</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <span class="date text-center"></span>
@@ -63,5 +118,8 @@
     <script src="./main.js"></script>
     <script src="https://kit.fontawesome.com/214a65b0a9.js"></script>
 </body>
+<footer>
+    <span class="d-block text-light text-center py-auto">Made from scratch by <a class="mx-1" href="https://marilyn-n.github.io/my-portfolio/">Marilyn Negrete</a>2019</span>
+</footer>
 
 </html>

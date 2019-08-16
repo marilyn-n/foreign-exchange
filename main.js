@@ -5,7 +5,7 @@ const dropdownMenu = document.querySelector('.dropdown-option-menu');
 const date = document.querySelector('.date');
 const rate = document.querySelector('.rate');
 const currencyName = document.querySelector('.currency-name');
-// const input = document.querySelector('input');
+const input = document.querySelector('input');
 
 const btnConvert = document.querySelector('.convert');
 const inputAmount = document.querySelector('.amount');
@@ -124,7 +124,7 @@ const validateInput = (e) => {
 
 fetchCurrencies();
 dropdownMenu.addEventListener('change', currencyConverter);
-// dropdownMenu.addEventListener('change', historicalWeek);
+dropdownMenu.addEventListener('change', historicalWeek);
 window.addEventListener('load', () => {
     setInterval(() => {
         date.textContent = new Date()
