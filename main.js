@@ -15,6 +15,7 @@ const lowValue = document.querySelector('.low-value');
 const averageValue = document.querySelector('.average-value');
 const highValue = document.querySelector('.high-value');
 const summaryRatesTitle = document.querySelector('.summary-rate');
+const historicalDetails = document.querySelector('.historical-details');
 
 
 const convertFrom = () => {
@@ -103,20 +104,36 @@ const historicalWeek = () => {
                     datasets: [{
                         label: `# MXN Against ${symbolCurrency}`,
                         data: rates,
-                        backgroundColor: [
-                            'rgb(237, 247, 242)'
-                        ],
                         borderColor: [
                             'rgb(14, 157, 88)'
                         ],
-                        borderWidth: 2
-                    }]
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgb(14, 157, 88)',
+                        lineTension: 0
+                    }],
+
                 },
                 options: {
+                    legend: {
+                        labels: {
+                            fontColor: "white",
+                            fontSize: 18
+                        }
+                    },
                     scales: {
                         yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Closing Rates ($)',
+                                fontColor: 'white'
+                            },
                             ticks: {
-                                beginAtZero: true
+                                fontColor: 'white',
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                fontColor: "white",
                             }
                         }]
                     }

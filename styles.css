@@ -19,6 +19,8 @@ h5 {
 footer {
     height: 2.5rem;
     width: 100%;
+    position: fixed;
+    bottom: 0;
     background-color: #2e4369;
 }
 
@@ -52,10 +54,10 @@ footer>span {
     margin: 2rem 0;
 }
 
-.historical-exchange {
-    display: flex;
-    justify-content: space-between;
-}
+
+/* .historical-exchange {
+    
+} */
 
 .btn-radius {
     border-radius: 50% !important;
