@@ -15,14 +15,14 @@
     <section>
         <nav class="navbar navbar-light bg-dark-blue">
             <a class="navbar-brand" href="#">
-                <img class="img-radius" src="./assets/images/foreign-exchange-app.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img class="img-radius" src="./assets/images/foreign-exchange-logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 <span>Foreign Exchange</span>
             </a>
         </nav>
     </section>
 
-    <section>
-        <div class="container offset-md-3 col-8">
+    <section class="convert-panel">
+        <div class="container offset-md-2 col-8">
             <h1 class="text-left text-white mb-4"></h1>
             <div class="card p-3">
                 <div class="d-flex">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <div class="total-details d-none">
+                <div class="total-details">
                     <span class="total-converted"></span>
                 </div>
                 <div class="rate-details">
@@ -67,7 +67,7 @@
     </section>
 
     <section class="historic-rates">
-        <div class="container offset-md-3 col-8">
+        <div class="container offset-md-2 col-8">
             <canvas id="myChart" width="400" height="200"></canvas>
             <div class="historical-buttons text-center">
                 <button type="button" class="btn btn-outline-primary active">Past 7 days</button>
@@ -77,7 +77,7 @@
     </section>
 
     <section class="historical-details bg-white">
-        <div class="container offset-md-3 col-8">
+        <div class="container offset-md-2 col-8">
             <div class="">
                 <h5 class="summary-rate"></h5>
                 <ul class="list-group list-group-horizontal-lg p-0">
@@ -121,9 +121,9 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div>
-            <span class="date text-center"></span>
+            <div>
+                <span class="date text-center"></span>
+            </div>
         </div>
     </section>
 

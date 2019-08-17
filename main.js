@@ -17,14 +17,18 @@ const highValue = document.querySelector('.high-value');
 const summaryRatesTitle = document.querySelector('.summary-rate');
 const historicalDetails = document.querySelector('.historical-details');
 
-
 const convertFrom = () => {
     const amount = inputAmount.value;
     if (amount > 0) {
         const currencyToConvert = Number(dropdownMenu.options[dropdownMenu.selectedIndex].value);
         const currencySymbol = dropdownMenu.options[dropdownMenu.selectedIndex].text;
-        const total = (amount * currencyToConvert).toFixed(3);
-        totalAmountConverted.parentElement.classList.remove('d-none');
+        const fixNumber = (amount * currencyToConvert).toFixed(3);
+        const total = Number(fixNumber).toLocaleString();
+
+        if (totalAmountConverted.style.opacity == 0) {
+            totalAmountConverted.style.opacity = 1;
+        }
+
         return totalAmountConverted.textContent = `$${total} ${currencySymbol}`;
     } else {
         totalAmountConverted.textContent = ``;
