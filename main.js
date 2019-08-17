@@ -17,6 +17,8 @@ const highValue = document.querySelector('.high-value');
 const summaryRatesTitle = document.querySelector('.summary-rate');
 const historicalDetails = document.querySelector('.historical-details');
 
+const topSymbols = 'symbols=USD,CAD,EUR,GBP,AUD,JPY,MXN';
+
 const convertFrom = () => {
     const amount = inputAmount.value;
     if (amount > 0) {
@@ -148,10 +150,39 @@ const historicalWeek = () => {
 
 }
 
+const topCurrencies = (data) => {
+    const topRates = data.rates;
+    const mxn = data.rates.MXN;
+
+    for (const topRate in topRates) {
+        const valueRate = (topRates[topRate] / mxn).toFixed(3);
+        const tableRowSymbol = document.querySelector('.tr-symbol');
+        const tableRowRate = document.querySelector('.tr-rate');
+
+        console.log('ji');
+
+        tableRowSymbol.innerHTML += `
+            <th class="text-center" scope="col">${topRate}</th>
+        `;
+
+        tableRowRate.innerHTML += `
+            <td class="text-center">${valueRate}</td>
+        `;
+
+    }
+
+}
+
 const fetchCurrencies = () => {
     fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${currencySymbols}`)
         .then((response) => response.json())
         .then(currencyConverter);
+}
+
+const fetchTopCurrencies = () => {
+    fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${topSymbols}`)
+        .then((res) => res.json())
+        .then(topCurrencies);
 }
 
 const validateInput = (e) => {
@@ -168,6 +199,7 @@ const validateInput = (e) => {
 }
 
 fetchCurrencies();
+fetchTopCurrencies();
 window.addEventListener('load', () => {
     setInterval(() => {
         date.textContent = new Date()
