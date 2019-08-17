@@ -79,7 +79,7 @@ const historicalWeek = () => {
         days.push(formatDate(day));
     }
 
-    const test = ['2019-08-12', '2019-08-13'] // ${d}
+    const test = ['2019-08-12', '2019-08-13'] // ${days}
 
     Promise.all(test.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${symbolCurrency},MXN`)))
         .then(responses => Promise.all(responses.map(res => res.json())))

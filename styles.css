@@ -12,16 +12,22 @@ h1 {
     text-align: center;
 }
 
-h5 {
+.img-radius {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.navbar>.navbar-brand>span {
     color: white;
+    margin-left: 1rem;
 }
 
 footer {
     height: 2.5rem;
     width: 100%;
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
-    background-color: #2e4369;
 }
 
 footer>span {
@@ -54,11 +60,6 @@ footer>span {
     margin: 2rem 0;
 }
 
-
-/* .historical-exchange {
-    
-} */
-
 .btn-radius {
     border-radius: 50% !important;
     height: 40px;
@@ -72,9 +73,10 @@ footer>span {
     border-top: 1px solid red;
 }
 
-.top-currency-list {
+
+/* .top-currency-list {
     display: flex;
-}
+} */
 
 .exchange-list {
     padding: 0;
@@ -126,4 +128,8 @@ footer>span {
 
 .bg-clear-gray {
     background-color: #f2f5f7;
+}
+
+.bg-dark-blue {
+    background-color: #2e4369;
 }

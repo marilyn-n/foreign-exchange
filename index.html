@@ -12,54 +12,73 @@
 </head>
 
 <body>
-    <div class="container offset-md-3 col-8">
-        <h1 class="text-left text-white mb-4"></h1>
-        <div class="card p-2">
-            <div class="d-flex">
-                <div class="col-3">
-                    <label class="d-block" for="amoutn" value="" name="amount">Amount</label>
-                    <div class="input-group mb-2 m-r5">
-                        <input type="text" class="form-control amount" aria-label="Amount (to the nearest dollar)">
-                    </div>
-                    <p class="input-validation d-none">Must input numbers</p>
-                </div>
-                <div class="col-3">
-                    <label class="d-block" for="from">From</label>
-                    <div class="currency">
-                        <select class="dropdown-option-menu2 custom-select from" disabled>
-                            <option value="">MXN</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <label class="" for="to">Convert to</label>
-                    <div class="currency">
-                        <select class="dropdown-option-menu custom-select to" name="" id=""></select>
-                    </div>
-                </div>
-                <div class="col-3 my-auto text-center">
-                    <button type="submit" class="btn btn-primary convert btn-radius">
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
+    <section>
+        <nav class="navbar navbar-light bg-dark-blue">
+            <a class="navbar-brand" href="#">
+                <img class="img-radius" src="./assets/images/foreign-exchange-app.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                <span>Foreign Exchange</span>
+            </a>
+        </nav>
+    </section>
 
-            <div class="total-details d-none">
-                <span class="total-converted"></span>
-            </div>
-            <div class="rate-details">
-                <span class="base-currency">1 Mexican Peso equals</span>
-                <span class="rate"></span>
-                <span class="currency-name"></span>
+    <section>
+        <div class="container offset-md-3 col-8">
+            <h1 class="text-left text-white mb-4"></h1>
+            <div class="card p-3">
+                <div class="d-flex">
+                    <div class="col-3">
+                        <label class="d-block" for="amoutn" value="" name="amount">Amount</label>
+                        <div class="input-group mb-2 m-r5">
+                            <input type="text" class="form-control amount" aria-label="Amount (to the nearest dollar)">
+                        </div>
+                        <p class="input-validation d-none">Must input numbers</p>
+                    </div>
+                    <div class="col-3">
+                        <label class="d-block" for="from">From</label>
+                        <div class="currency">
+                            <select class="dropdown-option-menu2 custom-select from" disabled>
+                                <option value="">MXN</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label class="" for="to">Convert to</label>
+                        <div class="currency">
+                            <select class="dropdown-option-menu custom-select to" name="" id=""></select>
+                        </div>
+                    </div>
+                    <div class="col-3 mt-4 text-center">
+                        <button type="submit" class="btn btn-primary convert btn-radius">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="total-details d-none">
+                    <span class="total-converted"></span>
+                </div>
+                <div class="rate-details">
+                    <span class="base-currency">1 Mexican Peso equals</span>
+                    <span class="rate"></span>
+                    <span class="currency-name"></span>
+                </div>
             </div>
         </div>
-        <canvas id="myChart" width="400" height="200"></canvas>
-        <div class="historical-details d-none">
+    </section>
+
+    <section class="historic-rates">
+        <div class="container offset-md-3 col-8">
+            <canvas id="myChart" width="400" height="200"></canvas>
             <div class="historical-buttons text-center">
                 <button type="button" class="btn btn-outline-primary active">Past 7 days</button>
                 <button type="button" class="btn btn-outline-primary">Past 12 days</button>
             </div>
-            <div class="mt-4">
+        </div>
+    </section>
+
+    <section class="historical-details bg-white">
+        <div class="container offset-md-3 col-8">
+            <div class="">
                 <h5 class="summary-rate"></h5>
                 <ul class="list-group list-group-horizontal-lg p-0">
                     <li class="list-group-item col">
@@ -78,39 +97,35 @@
                 </ul>
             </div>
             <div class="mt-4 top-currency-list">
+                <h5 class="rate-title">Top Currencies</h5>
                 <table class="col table table-light mr-2">
                     <thead class="bg-clear-gray">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
+                            <th class="text-center" scope="col">&#x1F1FA;&#x1F1F8; USD</th>
+                            <th class="text-center" scope="col">&#x1F1E8;&#x1F1E6; CAD</th>
+                            <th class="text-center" scope="col">&#x1F1EC;&#x1F1E7; GBP</th>
+                            <th class="text-center" scope="col">&#x1F1EA;&#x1F1FA; EUR</th>
+                            <th class="text-center" scope="col">&#x1F1E6;&#x1F1FA; AUD</th>
+                            <th class="text-center" scope="col">&#x1F1EF;&#x1F1F5; JPY</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td class="text-right">Mark</td>
-
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="col table table-light">
-                    <thead class="bg-clear-gray">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td class="text-right">Mark</td>
+                            <td class="text-center">Mark</td>
+                            <td class="text-center">Mark</td>
+                            <td class="text-center">Mark</td>
+                            <td class="text-center">Mark</td>
+                            <td class="text-center">Mark</td>
+                            <td class="text-center">Mark</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <span class="date text-center"></span>
-    </div>
+        <div>
+            <span class="date text-center"></span>
+        </div>
+    </section>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -118,7 +133,7 @@
     <script src="./main.js"></script>
     <script src="https://kit.fontawesome.com/214a65b0a9.js"></script>
 </body>
-<footer>
+<footer class="bg-dark-blue">
     <span class="d-block text-light text-center py-auto">Made from scratch by <a class="mx-1" href="https://marilyn-n.github.io/my-portfolio/">Marilyn Negrete</a>2019</span>
 </footer>
 
