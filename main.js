@@ -1,12 +1,14 @@
 const ctx = document.getElementById('myChart').getContext('2d');
 const accesKey = 'af1df608b7578b3a6cf8c34a07436951';
 const currencySymbols = 'symbols';
+const topSymbols = 'symbols=USD,CAD,EUR,GBP,AUD,JPY,MXN';
+
 const dropdownMenu = document.querySelector('.dropdown-option-menu');
 const date = document.querySelector('.date');
 const rate = document.querySelector('.rate');
 const currencyName = document.querySelector('.currency-name');
 const input = document.querySelector('input');
-const h1 = document.querySelector('h1');
+
 const btnConvert = document.querySelector('.convert');
 const inputAmount = document.querySelector('.amount');
 const totalAmountConverted = document.querySelector('.total-converted');
@@ -14,10 +16,10 @@ const totalAmountConverted = document.querySelector('.total-converted');
 const lowValue = document.querySelector('.low-value');
 const averageValue = document.querySelector('.average-value');
 const highValue = document.querySelector('.high-value');
+const h1 = document.querySelector('h1');
 const summaryRatesTitle = document.querySelector('.summary-rate');
 const historicalDetails = document.querySelector('.historical-details');
-
-const topSymbols = 'symbols=USD,CAD,EUR,GBP,AUD,JPY,MXN';
+const past12Days = document.querySelector('.past-12-days');
 
 const convertFrom = () => {
     const amount = inputAmount.value;
@@ -32,6 +34,7 @@ const convertFrom = () => {
         }
 
         return totalAmountConverted.textContent = `$${total} ${currencySymbol}`;
+
     } else {
         totalAmountConverted.textContent = ``;
         return;
@@ -84,7 +87,7 @@ const historicalWeek = () => {
         days.push(formatDate(day));
     }
 
-    const test = ['2019-08-12', '2019-08-13'] // ${days}
+    const test = ['2019-08-12'] // ${days}
 
     Promise.all(test.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${symbolCurrency},MXN`)))
         .then(responses => Promise.all(responses.map(res => res.json())))
@@ -172,18 +175,6 @@ const topCurrencies = (data) => {
 
 }
 
-const fetchCurrencies = () => {
-    fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${currencySymbols}`)
-        .then((response) => response.json())
-        .then(currencyConverter);
-}
-
-const fetchTopCurrencies = () => {
-    fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${topSymbols}`)
-        .then((res) => res.json())
-        .then(topCurrencies);
-}
-
 const validateInput = (e) => {
     var x = inputAmount.value;
     if (isNaN(x)) {
@@ -197,16 +188,29 @@ const validateInput = (e) => {
     }
 }
 
+const fetchCurrencies = () => {
+    fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${currencySymbols}`)
+        .then((response) => response.json())
+        .then(currencyConverter)
+        .then(historicalWeek);
+}
+
+const fetchTopCurrencies = () => {
+    fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${topSymbols}`)
+        .then((res) => res.json())
+        .then(topCurrencies)
+}
+
 fetchCurrencies();
 fetchTopCurrencies();
-window.addEventListener('load', () => {
-    setInterval(() => {
-        date.textContent = new Date()
-    }, 1000);
-});
 
 btnConvert.addEventListener('click', currencyConverter);
 btnConvert.addEventListener('click', historicalWeek);
 btnConvert.addEventListener('click', convertFrom);
 
 inputAmount.addEventListener('keyup', validateInput);
+window.addEventListener('load', () => {
+    setInterval(() => {
+        date.textContent = new Date()
+    }, 1000);
+});
