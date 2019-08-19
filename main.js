@@ -34,7 +34,6 @@ const convertFrom = () => {
         return totalAmountConverted.textContent = `$${total} ${currencySymbol}`;
     } else {
         totalAmountConverted.textContent = ``;
-        totalAmountConverted.parentElement.classList.add('d-none');
         return;
     }
 
@@ -154,12 +153,12 @@ const topCurrencies = (data) => {
     const topRates = data.rates;
     const mxn = data.rates.MXN;
 
+    delete topRates['MXN']; // remove from the table of top rates
+
     for (const topRate in topRates) {
         const valueRate = (topRates[topRate] / mxn).toFixed(3);
         const tableRowSymbol = document.querySelector('.tr-symbol');
         const tableRowRate = document.querySelector('.tr-rate');
-
-        console.log('ji');
 
         tableRowSymbol.innerHTML += `
             <th class="text-center" scope="col">${topRate}</th>

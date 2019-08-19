@@ -1,27 +1,23 @@
-html,
-body {
-    background-color: #37517e;
-}
-
 section.historical-details {
+    background-color: #37517e;
     padding: 3rem 0;
 }
 
 section.historic-rates {
+    background-color: #37517e;
     padding-bottom: 3rem;
 }
 
 section.convert-panel {
+    background-color: #37517e;
     padding-top: 3rem;
 }
 
-.container {
-    padding: 1rem;
-    margin: 3rem auto;
-}
-
 h1 {
-    text-align: center;
+    text-align: left;
+    color: white;
+    margin-bottom: 2rem;
+    display: block;
 }
 
 .img-radius {
@@ -32,13 +28,19 @@ h1 {
 
 .navbar>.navbar-brand>span {
     color: white;
-    margin-left: 1rem;
+}
+
+canvas {
+    object-fit: contain;
+}
+
+.chartjs {
+    padding: 3rem 0;
 }
 
 footer {
-    height: 2.5rem;
+    height: auto;
     width: 100%;
-    /* position: fixed; */
     bottom: 0;
 }
 
@@ -144,4 +146,28 @@ footer>span {
 
 .bg-dark-blue {
     background-color: #2e4369;
+}
+
+.convert-form {
+    display: flex;
+}
+
+
+/* breakfoint xs */
+
+@media (min-width: 320px) and (max-width: 425px) {
+    h1,
+    h5 {
+        text-align: center;
+    }
+    .navbar-brand {
+        margin: 0 auto;
+    }
+    .convert-form {
+        display: flex;
+        flex-direction: column;
+    }
+    canvas {
+        width: 300px;
+    }
 }
