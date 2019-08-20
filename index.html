@@ -31,7 +31,7 @@
                         <div class="input-group mb-2 m-r5">
                             <input type="text" class="form-control amount" aria-label="Amount (to the nearest dollar)">
                         </div>
-                        <p class="input-validation d-none">Must input numbers</p>
+                        <p class="error-message d-none">Must input numbers</p>
                     </div>
                     <div class="col">
                         <label class="d-block" for="from">From</label>
@@ -71,10 +71,10 @@
             <div class="chartjs">
                 <canvas id="myChart" width="400" height="200"></canvas>
             </div>
-            <div class="historical-buttons text-center">
-                <button type="button" class="btn btn-outline-primary active">Past 7 days</button>
-                <button type="button" class="btn btn-outline-primary past-12-days">Past 12 days</button>
-            </div>
+            <!-- <div class="historical-buttons text-center">
+                <button type="button" data-historic="6" class="btn btn-outline-primary active">Past 7 days</button>
+                <button type="button" data-historic="11" class="btn btn-outline-primary">Past 14 days</button>
+            </div> -->
         </div>
     </section>
 

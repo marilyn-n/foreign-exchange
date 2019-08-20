@@ -1,26 +1,30 @@
+// selectors
 const ctx = document.getElementById('myChart').getContext('2d');
-const accesKey = 'af1df608b7578b3a6cf8c34a07436951';
-const currencySymbols = 'symbols';
-const topSymbols = 'symbols=USD,CAD,EUR,GBP,AUD,JPY,MXN';
-
 const dropdownMenu = document.querySelector('.dropdown-option-menu');
 const date = document.querySelector('.date');
 const rate = document.querySelector('.rate');
 const currencyName = document.querySelector('.currency-name');
 const input = document.querySelector('input');
-
 const btnConvert = document.querySelector('.convert');
 const inputAmount = document.querySelector('.amount');
+const inputError = document.querySelector('.error-message');
 const totalAmountConverted = document.querySelector('.total-converted');
 
 const lowValue = document.querySelector('.low-value');
 const averageValue = document.querySelector('.average-value');
 const highValue = document.querySelector('.high-value');
 const h1 = document.querySelector('h1');
-const summaryRatesTitle = document.querySelector('.summary-rate');
+const summaryTitle = document.querySelector('.summary-rate');
 const historicalDetails = document.querySelector('.historical-details');
-const past12Days = document.querySelector('.past-12-days');
+const historicalBtns = document.querySelectorAll('button[type="button"]');
 
+
+// API url
+const accesKey = 'af1df608b7578b3a6cf8c34a07436951';
+const currencySymbols = 'symbols';
+const topSymbols = 'symbols=USD,CAD,EUR,GBP,AUD,JPY,MXN';
+
+// functions
 const convertFrom = () => {
     const amount = inputAmount.value;
     if (amount > 0) {
@@ -60,7 +64,7 @@ const currencyConverter = (data) => {
     rate.textContent = `$${convertedRate.toFixed(3)}`;
     currencyName.textContent = `${optionCurrencyCode}`;
     h1.textContent = `# MXN to ${optionCurrencyCode}`;
-    summaryRatesTitle.textContent = `${optionCurrencyCode}`;
+    summaryTitle.textContent = `${optionCurrencyCode}`;
 
 }
 
@@ -76,41 +80,41 @@ const formatDate = (date) => {
     return [year, month, day].join('-');
 }
 
-const historicalWeek = () => {
-    const daysOffWeek = 7;
-    const symbolCurrency = currencyName.textContent;
+
+function historicalRates(historicalDays) {
+    historicalDays = 7;
+    const currencySymbol = currencyName.textContent;
     const days = [];
 
-    for (let i = 0; i <= daysOffWeek; i++) {
-        const date = new Date() - ((daysOffWeek >= 0 ? i : (i - i - i)) * 24 * 60 * 60 * 1000);
+    for (let i = 0; i <= historicalDays; i++) {
+        const date = new Date() - ((historicalDays >= 0 ? i : (i - i - i)) * 24 * 60 * 60 * 1000);
         const day = new Date(date)
         days.push(formatDate(day));
     }
 
-    const test = ['2019-08-12'] // ${days}
-
-    Promise.all(test.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${symbolCurrency},MXN`)))
+    const test = ['2019-08-12']
+    Promise.all(days.map(d => fetch(`http://data.fixer.io/api/${d}?access_key=${accesKey}&symbols=${currencySymbol},MXN`)))
         .then(responses => Promise.all(responses.map(res => res.json())))
         .then(data => {
 
             const dates = data.map(item => item['date']);
             const rates = data
                 .map(item => item['rates'])
-                .map(rate => (rate[symbolCurrency] / rate['MXN']).toFixed(3));
+                .map(rate => (rate[currencySymbol] / rate['MXN']).toFixed(3));
 
             const summaryRates = rates.map(item => parseFloat(item));
             const average = summaryRates.reduce((accumulator, currentValue) => accumulator + currentValue);
 
             lowValue.textContent = `$${Math.min(...summaryRates)}`;
             highValue.textContent = `$${Math.max(...summaryRates)}`;
-            averageValue.textContent = `$${average}`;
+            averageValue.textContent = `$${average.toFixed(3)}`;
 
             const myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: dates,
                     datasets: [{
-                        label: `# MXN Against ${symbolCurrency}`,
+                        label: `# MXN Against ${currencySymbol}`,
                         data: rates,
                         borderColor: [
                             'rgb(14, 157, 88)'
@@ -176,14 +180,14 @@ const topCurrencies = (data) => {
 }
 
 const validateInput = (e) => {
-    var x = inputAmount.value;
-    if (isNaN(x)) {
+    const inputValue = inputAmount.value;
+    if (isNaN(inputValue)) {
         btnConvert.setAttribute('disabled', true);
-        document.querySelector('.input-validation').classList.remove('d-none');
+        inputError.classList.remove('d-none');
         return false;
     } else {
         btnConvert.removeAttribute('disabled');
-        document.querySelector('.input-validation').classList.add('d-none');
+        inputError.classList.add('d-none');
         return true;
     }
 }
@@ -192,7 +196,7 @@ const fetchCurrencies = () => {
     fetch(`http://data.fixer.io/api/latest?access_key=${accesKey}&${currencySymbols}`)
         .then((response) => response.json())
         .then(currencyConverter)
-        .then(historicalWeek);
+        .then(historicalRates);
 }
 
 const fetchTopCurrencies = () => {
@@ -201,11 +205,12 @@ const fetchTopCurrencies = () => {
         .then(topCurrencies)
 }
 
+// hook up events and function calls
 fetchCurrencies();
 fetchTopCurrencies();
 
 btnConvert.addEventListener('click', currencyConverter);
-btnConvert.addEventListener('click', historicalWeek);
+btnConvert.addEventListener('click', historicalRates);
 btnConvert.addEventListener('click', convertFrom);
 
 inputAmount.addEventListener('keyup', validateInput);
