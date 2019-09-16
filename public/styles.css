@@ -1,3 +1,7 @@
+html {
+    background-color: #2e4369;
+}
+
 h1 {
     text-align: left;
     color: white;
@@ -43,6 +47,10 @@ canvas {
     padding: 3rem 0;
 }
 
+ul > li:hover {
+    background-color: #f2f5f7;
+}
+
 .total-details,
 .rate-details {
     text-align: center;
@@ -75,12 +83,15 @@ button.convert {
     width: 40px;
 }
 
-.input-validation {
+.error-message {
     color: red;
     font-size: .5rem;
+    font-weight: bolder;
     margin: 0;
     border-top: 1px solid red;
 }
+
+
 
 .convert-form {
     display: flex;
