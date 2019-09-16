@@ -158,24 +158,21 @@ function historicalWeek(week) {
 }
 
 const topCurrencies = (data) => {
-    console.log(data);
-    const topRates = data.rates;
+    console.log(data);  
+    const rates = data.rates;
 
-    for (const key in topRates) {
-        const valueRate = (topRates[key] / topRates['MXN']).toFixed(3);
+    const topCurrencies = ['USD', 'GBP', 'CAD', 'JPY', 'MXN'];
+
+    topCurrencies.map(cur => {
         const tableRowSymbol = document.querySelector('.tr-symbol');
         const tableRowRate = document.querySelector('.tr-rate');
 
-        tableRowSymbol.innerHTML += `
-            <th class="text-center" scope="col">${key}</th>
-        `;
-
-        tableRowRate.innerHTML += `
-            <td class="text-center">${valueRate}</td>
-        `;
-
-    }
-
+        tableRowSymbol.innerHTML += 
+        `<td class="text-center">${cur}</td>`
+        tableRowRate.innerHTML += 
+        `<td class="text-center">${(rates[cur] / rates['MXN']).toFixed(3) }</td>`;
+    })
+    
 }
 
 const validateInput = (e) => {
