@@ -64,7 +64,7 @@ const currencyConverter = (data) => {
 
 const formatDate = (date) => {
     let d = new Date(date),
-        month = '' + (d.getMonth() + 1),
+        month = '' + (d.getMonth() +1),
         day = '' + d.getDate(),
         year = d.getFullYear();
 
@@ -75,33 +75,26 @@ const formatDate = (date) => {
 }
 
 
-function historicalWeek(week) {
-    week = 7;
+function historicalWeek() {
     const currencySymbol = currencyName.textContent;
-    const days = [];
-
-    for (let i = 0; i <= week; i++) {        
-        const time = ((week >= 0 ? i : i - i - i ) * 24 * 60 * 60 * 1000)
-        const date = new Date() - time ;
-        const day = new Date(date)
-        days.push(formatDate(day));
-    }
-    
-    fetch(`https://api.exchangeratesapi.io/history?start_at=${days[7]}&end_at=${days[0]}&symbols=${currencySymbol},MXN`)
+    fetch(`https://api.exchangeratesapi.io/history?start_at=2019-09-01&end_at=2019-09-15&symbols=${currencySymbol},MXN`)
     .then(res => res.json())
         .then(data => {
-            const objData = data.rates;
+            const entries = Object.entries(data.rates);
+            entries.map(item => item)
+            entries.sort();
 
-            const dates = []
+            const dates = entries.map(d => d[0])
+
             const rates = []
+            const currencyRates = entries.map(r => r[1])
 
-            for (key in objData) {
-                dates.push(key)
-                rates.push((objData[key][currencySymbol] / objData[key]['MXN']).toFixed(3))
+            for (const key in currencyRates) {
+                rates.push((currencyRates[key][currencySymbol] / currencyRates[key]['MXN']).toFixed(3))
             }
 
-            // console.log(dates);
-            // console.log(rates);
+            console.log(dates, 'dates');
+            console.log(rates, 'rates');
 
             const summaryRates = rates.map(item => parseFloat(item));
             const average = summaryRates.reduce((accumulator, currentValue) => accumulator + currentValue);
@@ -157,10 +150,9 @@ function historicalWeek(week) {
 
 }
 
-const topCurrencies = (data) => {
-    console.log(data);  
-    const rates = data.rates;
 
+const topCurrencies = (data) => {
+    const rates = data.rates;
     const topCurrencies = ['USD', 'GBP', 'CAD', 'JPY', 'MXN'];
 
     topCurrencies.map(cur => {
@@ -168,7 +160,7 @@ const topCurrencies = (data) => {
         const tableRowRate = document.querySelector('.tr-rate');
 
         tableRowSymbol.innerHTML += 
-        `<td class="text-center">${cur}</td>`
+        `<td class="text-center"><b>${cur}</b></td>`
         tableRowRate.innerHTML += 
         `<td class="text-center">${(rates[cur] / rates['MXN']).toFixed(3) }</td>`;
     })
