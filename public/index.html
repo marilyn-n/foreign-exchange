@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <label for="to">Convert to</label>
+                        <label for="to">To</label>
                         <div class="currency">
                             <select class="dropdown-option-menu custom-select to" name="" id=""></select>
                         </div>
@@ -71,17 +71,16 @@
             <div class="chartjs">
                 <canvas id="myChart" width="400" height="200"></canvas>
             </div>
-            <!-- <div class="historical-buttons text-center">
-                <button type="button" data-historic="6" class="btn btn-outline-primary active">Past 7 days</button>
-                <button type="button" data-historic="11" class="btn btn-outline-primary">Past 14 days</button>
-            </div> -->
         </div>
     </section>
 
-    <section class="historical-details bg-white">
+    <section class="historical-details">
         <div class="container">
-            <div class="mb-5">
-                <h5 class="summary-rate"></h5>
+            <div class="card mb-5">
+                <div class="exchange-rate-summary">
+                    <h5 class="summary">Exchange rate summary <span class="summary-rate d-block"></span></h5>
+                    <span class="chip">24H</span>
+                </div>
                 <ul class="list-group list-group-horizontal-lg p-0">
                     <li class="list-group-item col">
                         <span class="d-block text-center"><b>Low</b></span>
@@ -98,18 +97,11 @@
 
                 </ul>
             </div>
-            <h5 class="rate-title">Top Currencies</h5>
-            <div class="mb-5 table-responsive">
-                <table class="table table-ligh table-striped">
-                    <thead class="bg-clear-gray">
-                        <tr class="tr-symbol">
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="tr-rate">
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="card">
+                <div class="top-rates">
+                    <h5 class="rate-title">Top Currencies</h5>
+                </div>
+                <ul class="list-group list-group-horizontal top-currencies"></ul>
             </div>
             <div>
                 <span class="date text-center"></span>

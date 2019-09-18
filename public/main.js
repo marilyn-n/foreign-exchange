@@ -15,8 +15,8 @@ const averageValue = document.querySelector('.average-value');
 const highValue = document.querySelector('.high-value');
 const h1 = document.querySelector('h1');
 const summaryTitle = document.querySelector('.summary-rate');
-const historicalDetails = document.querySelector('.historical-details');
-const historicalBtns = document.querySelectorAll('button[type="button"]');
+
+const listOfTopCurrencies = document.querySelector('.top-currencies');
 
 // functions
 const convertFrom = () => {
@@ -26,11 +26,9 @@ const convertFrom = () => {
         const currencySymbol = dropdownMenu.options[dropdownMenu.selectedIndex].text;
         const fixNumber = (amount * currencyToConvert).toFixed(3);
         const total = Number(fixNumber).toLocaleString();
-
         if (totalAmountConverted.style.opacity == 0) {
             totalAmountConverted.style.opacity = 1;
         }
-
         return totalAmountConverted.textContent = `$${total} ${currencySymbol}`;
 
     } else {
@@ -41,15 +39,13 @@ const convertFrom = () => {
 }
 
 const currencyConverter = (data) => {
-    const exchangeRates = data.rates;
+    const rates = data.rates;
 
-    for (const currency in exchangeRates) {
-        const mexicanPeso = exchangeRates.MXN;
-        const currencyRate = exchangeRates[currency];
-        const currencyCode = currency;
+    for (const cur in rates) {
+        const MXN = rates.MXN;
+        const rate = rates[cur];
 
-        dropdownMenu.innerHTML += `
-        <option value="${currencyRate / mexicanPeso}" class="dropdown-item">${currencyCode}</option>`;
+        dropdownMenu.innerHTML += `<option value="${rate / MXN}" class="dropdown-item">${cur}</option>`;
     }
 
     const convertedRate = Number(dropdownMenu.options[dropdownMenu.selectedIndex].value);
@@ -74,12 +70,13 @@ const formatDate = (date) => {
     return [year, month, day].join('-');
 }
 
-
 function historicalWeek() {
     const currencySymbol = currencyName.textContent;
     fetch(`https://api.exchangeratesapi.io/history?start_at=2019-09-01&end_at=2019-09-15&symbols=${currencySymbol},MXN`)
     .then(res => res.json())
         .then(data => {
+            console.log(data);
+            
             const entries = Object.entries(data.rates);
             entries.map(item => item)
             entries.sort();
@@ -97,11 +94,11 @@ function historicalWeek() {
             console.log(rates, 'rates');
 
             const summaryRates = rates.map(item => parseFloat(item));
-            const average = summaryRates.reduce((accumulator, currentValue) => accumulator + currentValue);
-
+            const average = summaryRates.reduce((accumulator, currentValue) => accumulator + currentValue );
+            
             lowValue.textContent = `$${Math.min(...summaryRates)}`;
             highValue.textContent = `$${Math.max(...summaryRates)}`;
-            averageValue.textContent = `$${average.toFixed(3)}`;
+            averageValue.textContent = `$${(average / summaryRates.length).toFixed(3)}`;
 
             const myChart = new Chart(ctx, {
                 type: 'line',
@@ -150,46 +147,43 @@ function historicalWeek() {
 
 }
 
-
 const topCurrencies = (data) => {
     const rates = data.rates;
-    const topCurrencies = ['USD', 'GBP', 'CAD', 'JPY', 'MXN'];
+    const topCurrencies = ['USD', 'GBP', 'CAD', 'JPY', 'AUD'];
+    const MXN = rates['MXN'];
 
     topCurrencies.map(cur => {
-        const tableRowSymbol = document.querySelector('.tr-symbol');
-        const tableRowRate = document.querySelector('.tr-rate');
+        const rate = (rates[cur] / MXN ).toFixed(3)
 
-        tableRowSymbol.innerHTML += 
-        `<td class="text-center"><b>${cur}</b></td>`
-        tableRowRate.innerHTML += 
-        `<td class="text-center">${(rates[cur] / rates['MXN']).toFixed(3) }</td>`;
+        listOfTopCurrencies.innerHTML += `
+        <li class="list-group-item w-100 text-center">
+            <b class="top-currency d-block">${cur}</b>
+            <span class="top-rate">${rate}</span>
+        </li>`
     })
-    
+
 }
 
-const validateInput = (e) => {
-    const inputValue = inputAmount.value;
-    if (isNaN(inputValue)) {
+const validateInput = () => {
+    if (isNaN(inputAmount.value)) {
         btnConvert.setAttribute('disabled', true);
         inputError.classList.remove('d-none');
-        return false;
     } else {
         btnConvert.removeAttribute('disabled');
         inputError.classList.add('d-none');
-        return true;
     }
 }
 
 const fetchCurrencies = () => {
     fetch(`https://api.exchangeratesapi.io/latest`)
-        .then((response) => response.json())
+        .then(response => response.json())
         .then(currencyConverter)
         .then(historicalWeek);
 }
 
 const fetchTopCurrencies = () => {
     fetch(`https://api.exchangeratesapi.io/latest?symbols`)
-        .then((res) => res.json())
+        .then(res => res.json())
         .then(topCurrencies)
 }
 
@@ -200,7 +194,6 @@ fetchTopCurrencies();
 btnConvert.addEventListener('click', currencyConverter);
 btnConvert.addEventListener('click', convertFrom);
 btnConvert.addEventListener('click', historicalWeek);
-
 
 inputAmount.addEventListener('keyup', validateInput);
 window.addEventListener('load', () => {
