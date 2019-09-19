@@ -54,7 +54,7 @@ canvas {
 
 
 ul > li:hover {
-    background-color: #0e1e32 !important;
+    background-color: rgba(46, 128, 255, 0.04) !important;
 }
 
 .chip {

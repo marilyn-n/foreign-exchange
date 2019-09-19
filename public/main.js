@@ -50,7 +50,7 @@ const currencyConverter = (data) => {
 
     rate.textContent = `$${convertedRate.toFixed(3)}`;
     currencyName.textContent = `${optionCurrencyCode}`;
-    h4.textContent = `# MXN to ${optionCurrencyCode}`;
+    h4.textContent = `MXN to ${optionCurrencyCode}`;
     summaryTitle.textContent = `${optionCurrencyCode}`;
 
 }
@@ -194,6 +194,7 @@ btnConvert.addEventListener('click', historicalWeek);
 inputAmount.addEventListener('keyup', validateInput);
 window.addEventListener('load', () => {
     setInterval(() => {
-        date.textContent = new Date()
+        const dateAndTime = (new Date()).toString().slice(0, 25);
+        date.textContent = dateAndTime;
     }, 1000);
 });
