@@ -38,14 +38,12 @@ const convertFrom = () => {
 
 }
 
-const currencyConverter = (data) => {
+const currencyConverter = (data) => {    
     const rates = data.rates;
 
     for (const cur in rates) {
-        const MXN = rates.MXN;
         const rate = rates[cur];
-
-        dropdownMenu.innerHTML += `<option value="${rate / MXN}" class="dropdown-item">${cur}</option>`;
+        dropdownMenu.innerHTML += `<option value="${rate}" class="dropdown-item">${cur}</option>`;
     }
 
     const convertedRate = Number(dropdownMenu.options[dropdownMenu.selectedIndex].value);
@@ -72,7 +70,12 @@ const formatDate = (date) => {
 
 function historicalWeek() {
     const currencySymbol = currencyName.textContent;
-    fetch(`https://api.exchangeratesapi.io/history?start_at=2019-09-01&end_at=2019-09-15&symbols=${currencySymbol},MXN`)
+    const date = new Date();
+
+    const today = formatDate(date);
+    const finalDate = formatDate(date.setDate(date.getDate() - 8));
+    
+    fetch(`https://api.exchangeratesapi.io/history?start_at=${finalDate}&end_at=${today}&symbols=${currencySymbol}&base=MXN`)
     .then(res => res.json())
         .then(data => {
             console.log(data);
@@ -87,7 +90,7 @@ function historicalWeek() {
             const currencyRates = entries.map(r => r[1])
 
             for (const key in currencyRates) {
-                rates.push((currencyRates[key][currencySymbol] / currencyRates[key]['MXN']).toFixed(3))
+                rates.push((currencyRates[key][currencySymbol]).toFixed(3))
             }
 
             console.log(dates, 'dates');
@@ -150,10 +153,9 @@ function historicalWeek() {
 const topCurrencies = (data) => {
     const rates = data.rates;
     const topCurrencies = ['USD', 'GBP', 'CAD', 'JPY', 'AUD'];
-    const MXN = rates['MXN'];
 
     topCurrencies.map(cur => {
-        const rate = (rates[cur] / MXN ).toFixed(3)
+        const rate = (rates[cur]).toFixed(3)
 
         listOfTopCurrencies.innerHTML += `
         <li class="list-group-item w-100 text-center">
@@ -175,14 +177,14 @@ const validateInput = () => {
 }
 
 const fetchCurrencies = () => {
-    fetch(`https://api.exchangeratesapi.io/latest`)
+    fetch(`https://api.exchangeratesapi.io/latest?base=MXN`)
         .then(response => response.json())
         .then(currencyConverter)
         .then(historicalWeek);
 }
 
 const fetchTopCurrencies = () => {
-    fetch(`https://api.exchangeratesapi.io/latest?symbols`)
+    fetch(`https://api.exchangeratesapi.io/latest?symbols&base=MXN`)
         .then(res => res.json())
         .then(topCurrencies)
 }
