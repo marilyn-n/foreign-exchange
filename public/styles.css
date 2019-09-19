@@ -156,7 +156,7 @@ footer>span {
 
 /* breakpoint xs */
 
-@media (min-width: 320px) and (max-width: 425px) {
+@media (min-width: 320px) and (max-width: 575px) {
     h1, h4,h5 {
         font-size: 1rem;
     }
