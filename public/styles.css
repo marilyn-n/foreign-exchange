@@ -1,16 +1,19 @@
-html {
+body {
+    color: white;
     background-color: #0e1e32;
 }
 
 h1 {
     text-align: left;
-    color: white;
-    margin-bottom: 2rem;
     display: block;
+    font-size: 2rem;
+}
+
+h4 {
+    font-weight: lighter;
 }
 
 h5 {
-    color: white;
     margin: 0;
 }
 
@@ -18,15 +21,15 @@ section.historical-details,
 section.historic-rates,
 section.convert-panel {
     background-color: #0e1e32;
-    padding: 3rem 0;
+    padding: 1rem 0;
 }
 
 section.convert-panel {
     padding-top: 3rem;
 }
 
-nav {
-    background-color: #10233e;
+nav, .card, ul > li {
+    background-color: #10233e !important;
 }
 
 .navbar>.navbar-brand>span {
@@ -40,11 +43,6 @@ img.fx-logo {
     border-radius: 50%;
 }
 
-.card {
-    background-color: #10233e;
-    color: white;
-}
-
 canvas {
     object-fit: contain;
 }
@@ -54,10 +52,6 @@ canvas {
     background-color: #10233e;
 }
 
-ul > li{
-    background-color: #10223e !important;
-    color: white;
-}
 
 ul > li:hover {
     background-color: #0e1e32 !important;
@@ -82,7 +76,6 @@ ul > li:hover {
     overflow: hidden;
     justify-content: center;
     padding: .25rem .45rem;
-    margin: .25rem;
     text-align: center;
     margin-left: auto;
 }
@@ -114,7 +107,6 @@ ul > li:hover {
 
 .date {
     margin: 2rem 0;
-    color: white;
 }
 
 .base-currency,
@@ -132,18 +124,21 @@ button.convert {
 .error-message {
     color: red;
     font-size: .5rem;
-    font-weight: bolder;
     margin: 0;
-    border-top: 1px solid red;
 }
 
-.convert-form {
+.converter-form {
     padding: 1rem;
     display: flex;
 }
 
-.bg-dark-blue {
-    background-color: #10233e;
+.convert-btn {
+    margin-top: 1.75rem;
+    text-align:center;
+}
+
+.converter-form > div.col {
+    padding-left: 0;
 }
 
 footer {
@@ -162,16 +157,37 @@ footer>span {
 /* breakpoint xs */
 
 @media (min-width: 320px) and (max-width: 425px) {
-    h1,
-    h5 {
+    h1, h4,h5 {
+        font-size: 1rem;
+    }
+    .rate-title, h4 {
         text-align: center;
     }
+
     .navbar-brand {
         margin: 0 auto;
     }
-    .convert-form {
+
+    .currency-converter-title {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .total-converted {
+        font-size: 1.75rem;
+    }
+
+    .converter-form {
         display: flex;
         flex-direction: column;
+    }
+
+    .converter-form > div {
+        padding: 0;
+    }
+
+    .convert-btn{
+        max-width: none;
     }
     canvas {
         width: 300px;

@@ -13,7 +13,7 @@
 
 <body>
     <section>
-        <nav class="navbar navbar-light bg-dark-blue">
+        <nav class="navbar navbar-light">
             <a class="navbar-brand" href="#">
                 <img class="fx-logo" src="./assets/images/foreign-exchange-logo.png" width="30" height="30" class="align-top" alt="">
                 <span>Foreign Exchange</span>
@@ -22,16 +22,21 @@
     </section>
 
     <section class="convert-panel">
-        <div class="container ">
-            <h1></h1>
+        <div class="container">
             <div class="card">
-                <div class="convert-form">
+                <div class="d-flex px-3 py-3">
+                    <div class="currency-converter-title">
+                        <h1>Currency Converter</h1>
+                        <h4></h4>
+                    </div>
+                </div>
+                <div class="converter-form">
                     <div class="col">
                         <label class="d-block" for="amoutn" value="" name="amount">Amount</label>
-                        <div class="input-group mb-2 m-r5">
+                        <div class="input-group">
                             <input type="text" class="form-control amount" aria-label="Amount (to the nearest dollar)">
                         </div>
-                        <p class="error-message text-danger d-none">Must input numbers</p>
+                        <p class="error-message d-none">Must input numbers</p>
                     </div>
                     <div class="col">
                         <label class="d-block" for="from">From</label>
@@ -44,16 +49,15 @@
                     <div class="col">
                         <label for="to">To</label>
                         <div class="currency">
-                            <select class="dropdown-option-menu custom-select to" name="" id=""></select>
+                            <select class="dropdown-option-menu custom-select to"></select>
                         </div>
                     </div>
-                    <div class="col mt-4 text-center">
+                    <div class="convert-btn">
                         <button type="submit" class="btn btn-primary convert btn-radius">
                             <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
-
                 <div class="total-details">
                     <span class="total-converted"></span>
                 </div>
@@ -78,10 +82,13 @@
         <div class="container">
             <div class="card mb-5">
                 <div class="exchange-rate-summary">
-                    <h5 class="summary">Exchange rate summary <span class="summary-rate d-block"></span></h5>
-                    <span class="chip">24H</span>
+                    <div>
+                        <h5 class="summary">Exchange rate summary</h5>
+                        <span class="summary-rate d-block"></span>
+                    </div>
+                    <span class="chip">7 days</span>
                 </div>
-                <ul class="list-group list-group-horizontal-lg p-0">
+                <ul class="list-group list-group-horizontal-sm p-0">
                     <li class="list-group-item col">
                         <span class="d-block text-center"><b>Low</b></span>
                         <span class="d-block text-center low-value"></span>
@@ -94,14 +101,13 @@
                         <span class="d-block text-center"><b>High</b></span>
                         <span class="d-block text-center high-value"></span>
                     </li>
-
                 </ul>
             </div>
             <div class="card">
                 <div class="top-rates">
                     <h5 class="rate-title"><i class="fas fa-star text-warning mr-3"></i>Top Currencies</h5>
                 </div>
-                <ul class="list-group list-group-horizontal top-currencies"></ul>
+                <ul class="list-group list-group-horizontal-sm top-currencies"></ul>
             </div>
             <div>
                 <span class="date text-center"></span>
